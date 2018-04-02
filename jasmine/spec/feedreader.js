@@ -10,7 +10,10 @@
  */
 $(function () {
     var body = $('body'),
-        menuIcon = $('.menu-icon-link');
+        menuIcon = $('.menu-icon-link'),
+        feedContainer = $('.feed'),
+        feedEntry = $('.entry'),
+        title = $('.header-title');
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -82,18 +85,39 @@ $(function () {
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
+    describe('Initial Entries', function () {
 
-    /* TODO: Write a test that ensures when the loadFeed
-     * function is called and completes its work, there is at least
-     * a single .entry element within the .feed container.
-     * Remember, loadFeed() is asynchronous so this test will require
-     * the use of Jasmine's beforeEach and asynchronous done() function.
-     */
+        /* TODO: Write a test that ensures when the loadFeed
+         * function is called and completes its work, there is at least
+         * a single .entry element within the .feed container.
+         * Remember, loadFeed() is asynchronous so this test will require
+         * the use of Jasmine's beforeEach and asynchronous done() function.
+         */
+        beforeEach(function (done) {
+            loadFeed(0, function () {
+                done();
+            });
+        });
+        it('grap feeds', function (done) {
+            expect(feedContainer.find(feedEntry).length).not.toBeLessThan(0);
+            done();
+        });
+    });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
-
-    /* TODO: Write a test that ensures when a new feed is loaded
+    describe('New Feed Selection', function () {
+        /* TODO: Write a test that ensures when a new feed is loaded
      * by the loadFeed function that the content actually changes.
      * Remember, loadFeed() is asynchronous.
      */
+        beforeEach(function (done) {
+            loadFeed(1, function () {
+                done();
+            });
+        });
+        it('switch feeds', function (done) {
+            expect(title.text()).toEqual(allFeeds[1].name);
+            done();
+        });
+    });
 }());
