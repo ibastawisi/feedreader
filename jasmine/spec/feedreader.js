@@ -43,9 +43,9 @@ $(function () {
 
         // Test if menu icon works
         it('icon works', function () {
-            menuIcon.trigger('click');
+            menuIcon.click();
             expect(body.hasClass('menu-hidden')).toBe(false);
-            menuIcon.trigger('click');
+            menuIcon.click();
             expect(body.hasClass('menu-hidden')).toBe(true);
         });
 
@@ -71,20 +71,23 @@ $(function () {
 
     // New Feed Selection test suite
     describe('New Feed Selection', function () {
-        var initialTitle = title.html(),
-            initialEntries = container.html();
-        
+        var initialEntries,
+            newEntries;
+
         // Switch feeds provider
         beforeEach(function (done) {
-            loadFeed(1, function () {
-                done();
+            loadFeed(0, function () {
+                initialEntries = container.html();
+                loadFeed(1, function () {
+                    newEntries = container.html();
+                    done();
+                });
             });
         });
-
+        
         // Test if feed entries switch
         it('switch feeds', function (done) {
-            expect(title.html()).not.toEqual(initialTitle);
-            expect(container.html()).not.toEqual(initialEntries);
+            expect(newEntries).not.toEqual(initialEntries);
             done();
         });
 
