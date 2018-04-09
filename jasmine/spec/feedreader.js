@@ -2,7 +2,6 @@ $(function () {
     var body = $('body'),
         menuIcon = $('.menu-icon-link'),
         container = $('.feed'),
-        entry = $('.entry'),
         title = $('.header-title');
 
     // Feeds test suite
@@ -63,7 +62,7 @@ $(function () {
 
         // Test if feed entries exist
         it('are loaded', function (done) {
-            expect(container.find(entry).length).not.toBeLessThan(0);
+            expect(container.find($('.entry')).length).toBeGreaterThan(0);
             done();
         });
 
